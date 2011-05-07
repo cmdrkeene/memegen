@@ -32,6 +32,13 @@ You only have to supply one piece of text:
     /tmp/meme-1304797375.jpg
     $
     
+## Adding your own generators
+
+You can add generators to your local `~/.memegen` folder:
+
+    $ ls ~/.memegen
+    my_custom_generator.png
+    
 ## Contribute
 
 Feel free to improve this and add your own generator images!

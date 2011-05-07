@@ -1,7 +1,9 @@
 require "rubygems"
+require "bundler/setup"
 require "RMagick"
 
 class MemeGenerator
+  VERSION = "0.0.1"
   IMPACT_PATH = "fonts/Impact.ttf" # If you don't have OS X, fork me :)
 
   class << self
@@ -11,7 +13,7 @@ class MemeGenerator
       return list_generators if generator == "--list"
       return usage unless generator && (top || bottom)
 
-      if path = Dir.glob("generators/#{generator}*").first
+      if path = generators.find { |p| p =~ generator}
         generate(path, top, bottom)
         exit 0
       else
@@ -28,7 +30,7 @@ class MemeGenerator
     end
 
     def list_generators
-      Dir.glob("generators/*").sort.each do |path|
+      generators.each do |path|
         puts File.basename(path).gsub(/\..*/, '')
       end
       exit 0
@@ -102,6 +104,11 @@ class MemeGenerator
         scale = 0.5
       end
       [scale, text.strip]
+    end
+
+    def generators
+      home_dir = File.expand_path("~")
+      Dir.glob(["generators/*", home_dir]).sort
     end
   end
 end
