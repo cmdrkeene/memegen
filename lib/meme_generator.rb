@@ -1,10 +1,16 @@
 require "rubygems"
 require "RMagick"
 
-class Meme
+class MemeGenerator
+  IMPACT_PATH = "/Library/Fonts/Impact.ttf" # If you don't have OS X, fork me :)
+  
   class << self
     def run(argv = ARGV)
       generator, top, bottom = argv[0..2]
+      
+      return list_generators if generator == "--list"
+      return usage unless generator && (top || bottom)
+      
       if path = Dir.glob("images/#{generator}*").first
         generate(path, top, bottom)
         exit 0
@@ -16,6 +22,18 @@ class Meme
     
     private
     
+    def usage
+      puts 'usage: memegen <nae> <top> <bottom> [--list]'
+      exit 1
+    end
+    
+    def list_generators
+      Dir.glob("images/*").sort.each do |path|
+        puts File.basename(path).gsub(/\..*/, '')
+      end
+      exit 0
+    end
+    
     def generate(path, top, bottom)
       top = top.upcase
       bottom = bottom.upcase
@@ -24,7 +42,7 @@ class Meme
       image = canvas.first
       
       draw = Magick::Draw.new
-      draw.font = "/Library/Fonts/Impact.ttf"
+      draw.font = IMPACT_PATH if File.exists?(IMPACT_PATH)
       draw.font_weight = Magick::BoldWeight
       
       pointsize = image.columns / 5.0

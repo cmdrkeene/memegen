@@ -1,5 +1,0 @@
-#!/usr/bin/ruby
-
-require "lib/meme"
-
-Meme.run ARGV
