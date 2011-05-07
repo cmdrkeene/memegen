@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.email       = ["bkeene@gmail.com"]
   s.homepage    = "http://github.com/cmdrkeene/memegen"
   s.summary     = "Two-caption meme generator CLI"
-  s.description = "Generate two-caption, 'Advice Dog'-style meme images using the included generator library or use your own images."
+  s.description = "Locally generate two-caption 'Advice Dog'-style meme images"
  
   s.required_rubygems_version = ">= 1.3.6"
  
