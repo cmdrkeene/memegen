@@ -2,7 +2,7 @@ require "rubygems"
 require "RMagick"
 
 class MemeGenerator
-  IMPACT_PATH = "/Library/Fonts/Impact.ttf" # If you don't have OS X, fork me :)
+  IMPACT_PATH = "fonts/Impact.ttf" # If you don't have OS X, fork me :)
 
   class << self
     def run(argv = ARGV)
@@ -11,7 +11,7 @@ class MemeGenerator
       return list_generators if generator == "--list"
       return usage unless generator && (top || bottom)
 
-      if path = Dir.glob("images/#{generator}*").first
+      if path = Dir.glob("generators/#{generator}*").first
         generate(path, top, bottom)
         exit 0
       else
@@ -23,12 +23,12 @@ class MemeGenerator
     private
 
     def usage
-      puts 'usage: memegen <nae> <top> <bottom> [--list]'
+      puts 'usage: memegen <generator> <top text> <bottom text> [--list]'
       exit 1
     end
 
     def list_generators
-      Dir.glob("images/*").sort.each do |path|
+      Dir.glob("generators/*").sort.each do |path|
         puts File.basename(path).gsub(/\..*/, '')
       end
       exit 0
@@ -46,37 +46,41 @@ class MemeGenerator
       draw.font_weight = Magick::BoldWeight
 
       pointsize = image.columns / 5.0
-      stroke_width = pointsize / 25.0
+      stroke_width = pointsize / 30.0
       x_position = image.columns / 2
       y_position = image.rows * 0.15
 
       # Draw top
-      scale, text = scale_text(top)
-      bottom_draw = draw.dup
-      bottom_draw.annotate(canvas, 0, 0, 0, 0, text) do
-        self.interline_spacing = -(pointsize / 5)
-        self.stroke_antialias(true)
-        self.stroke = "black"
-        self.fill = "white"
-        self.gravity = Magick::NorthGravity
-        self.stroke_width = stroke_width * scale
-        self.pointsize = pointsize * scale
+      unless top.empty?
+        scale, text = scale_text(top)
+        bottom_draw = draw.dup
+        bottom_draw.annotate(canvas, 0, 0, 0, 0, text) do
+          self.interline_spacing = -(pointsize / 5)
+          self.stroke_antialias(true)
+          self.stroke = "black"
+          self.fill = "white"
+          self.gravity = Magick::NorthGravity
+          self.stroke_width = stroke_width * scale
+          self.pointsize = pointsize * scale
+        end
       end
 
       # Draw bottom
-      scale, text = scale_text(bottom)
-      bottom_draw = draw.dup
-      bottom_draw.annotate(canvas, 0, 0, 0, 0, text) do
-        self.interline_spacing = -(pointsize / 5)
-        self.stroke_antialias(true)
-        self.stroke = "black"
-        self.fill = "white"
-        self.gravity = Magick::SouthGravity
-        self.stroke_width = stroke_width * scale
-        self.pointsize = pointsize * scale
+      unless bottom.empty?
+        scale, text = scale_text(bottom)
+        bottom_draw = draw.dup
+        bottom_draw.annotate(canvas, 0, 0, 0, 0, text) do
+          self.interline_spacing = -(pointsize / 5)
+          self.stroke_antialias(true)
+          self.stroke = "black"
+          self.fill = "white"
+          self.gravity = Magick::SouthGravity
+          self.stroke_width = stroke_width * scale
+          self.pointsize = pointsize * scale
+        end
       end
 
-      output_path = "tmp/meme.jpeg"
+      output_path = "/tmp/meme-#{Time.now.to_i}.jpeg"
       canvas.write(output_path)
       puts output_path
       exit 0
