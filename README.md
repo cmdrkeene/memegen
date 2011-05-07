@@ -39,7 +39,12 @@ You can add generators to your local `~/.memegen` folder:
     $ ls ~/.memegen
     my_custom_generator.png
     
+## Bash completion
+
+Source or copy `script/autocomplete.sh` inside `~/.bashrc` to get generator 
+name autocompletion.
+
 ## Contribute
 
-Feel free to improve this and add your own generator images!
+Pull requests welcome!
     
