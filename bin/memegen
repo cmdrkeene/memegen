@@ -3,6 +3,37 @@
 $LOAD_PATH.unshift File.expand_path("lib")
 $LOAD_PATH.unshift File.expand_path("../lib")
 $LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
-require "meme_generator"
 
-MemeGenerator.run
+def generators
+  local_generator_dir = File.expand_path("~/.memegen")
+  Dir.glob(["generators/*", "#{local_generator_dir}/*"]).sort
+end
+
+def usage
+  puts 'usage: memegen <generator> <top text> <bottom text> [--list]'
+  exit 1
+end
+
+# Process command
+generator, top, bottom = ARGV[0..2]
+
+# List
+if generator == "--list"
+  generators.each do |path|
+    puts File.basename(path).gsub(/\..*/, '')
+  end
+  exit 0
+end
+
+# Require arguments
+usage unless generator && (top || bottom)
+
+# Generate
+if path = generators.find { |p| p =~ /#{generator}\./ }
+  require "meme_generator"
+  MemeGenerator.generate(path, top, bottom)
+  exit 0
+else
+  puts "Meme not found"
+  exit 1
+end

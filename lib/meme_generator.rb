@@ -7,35 +7,6 @@ class MemeGenerator
   IMPACT_PATH = "fonts/Impact.ttf" # If you don't have OS X, fork me :)
 
   class << self
-    def run(argv = ARGV)
-      generator, top, bottom = argv[0..2]
-
-      return list_generators if generator == "--list"
-      return usage unless generator && (top || bottom)
-
-      if path = generators.find { |p| p =~ /#{generator}\./}
-        generate(path, top, bottom)
-        exit 0
-      else
-        puts "Meme not found"
-        exit 1
-      end
-    end
-
-    private
-
-    def usage
-      puts 'usage: memegen <generator> <top text> <bottom text> [--list]'
-      exit 1
-    end
-
-    def list_generators
-      generators.each do |path|
-        puts File.basename(path).gsub(/\..*/, '')
-      end
-      exit 0
-    end
-
     def generate(path, top, bottom)
       top = top.upcase
       bottom = bottom.upcase
@@ -88,6 +59,8 @@ class MemeGenerator
       exit 0
     end
 
+    private
+
     def word_wrap(txt, col = 80)
       txt.gsub(/(.{1,#{col + 4}})(\s+|\Z)/, "\\1\n")
     end
@@ -104,11 +77,6 @@ class MemeGenerator
         scale = 0.5
       end
       [scale, text.strip]
-    end
-
-    def generators
-      local_generator_dir = File.expand_path("~/.memegen")
-      Dir.glob(["generators/*", "#{local_generator_dir}/*"]).sort
     end
   end
 end
