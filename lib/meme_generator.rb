@@ -13,7 +13,7 @@ class MemeGenerator
       return list_generators if generator == "--list"
       return usage unless generator && (top || bottom)
 
-      if path = generators.find { |p| p =~ generator}
+      if path = generators.find { |p| p =~ /#{generator}\./}
         generate(path, top, bottom)
         exit 0
       else
@@ -107,8 +107,8 @@ class MemeGenerator
     end
 
     def generators
-      home_dir = File.expand_path("~")
-      Dir.glob(["generators/*", home_dir]).sort
+      local_generator_dir = File.expand_path("~/.memegen")
+      Dir.glob(["generators/*", "#{local_generator_dir}/*"]).sort
     end
   end
 end
