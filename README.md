@@ -2,7 +2,7 @@
 
 An RMagick-based two-caption meme generator.
 
-![Profit](example.jpg)
+![Profit](https://github.com/cmdrkeene/memegen/raw/master/example.jpg)
 
 ## Install
 
