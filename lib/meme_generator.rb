@@ -3,7 +3,7 @@ require "bundler/setup"
 require "RMagick"
 
 class MemeGenerator
-  VERSION = "0.0.3"
+  VERSION = "0.0.4"
   IMPACT_PATH = "fonts/Impact.ttf" # If you don't have OS X, fork me :)
 
   class << self
