@@ -49,6 +49,14 @@ You can add images to your local `~/.memegen` folder:
     $ ls ~/.memegen
     my_custom_image.png
     
+## Upload to Campfire
+
+If you have a [Campfire](http://campfirenow.com/) account and token, you can automatically upload your image:
+
+    $ memegen a_dog "Hello" "Campfire world" --campfire
+    
+It will prompt you for your subdomain, token, and room name the first time.
+    
 ## Bash completion
 
 Source or copy `script/autocomplete.sh` inside `~/.bashrc` to get image name autocompletion.
