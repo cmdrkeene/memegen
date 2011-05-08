@@ -2,7 +2,7 @@ require "rubygems"
 require "bundler/setup"
 
 class MemeGenerator
-  VERSION = "1.0.1"
+  VERSION = "1.0.2"
 
   class << self
     def generate(path, top, bottom)
@@ -14,7 +14,7 @@ class MemeGenerator
       image = canvas.first
 
       draw = Magick::Draw.new
-      draw.font = "fonts/Impact.ttf"
+      draw.font = File.join(File.dirname(__FILE__), "..", "fonts", "Impact.ttf")
       draw.font_weight = Magick::BoldWeight
 
       pointsize = image.columns / 5.0
