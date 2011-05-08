@@ -18,18 +18,12 @@ def list_generators
   exit 0
 end
 
-def setup_campfire
-  require "meme_generator/campfire"
-  if !MemeGenerator::Campfire.config
-    MemeGenerator::Campfire.prompt_config
-  end
-end
-
 def parse_path(string)
   if string =~ /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
     path = "/tmp/memegen-download-#{Time.now.to_i}"
     `curl "#{image}" -o #{path} --silent`
-  elsif path = images.find { |p| p =~ /#{path}\./ }
+  elsif path = images.find { |p| p =~ /#{string}\./ }
+
   else
     puts "Error: Image not found. Use --list to view installed images."
     exit 1
@@ -40,6 +34,8 @@ end
 def generate(path, top, bottom, campfire)
   if top || bottom
     require "meme_generator"
+    require "meme_generator/campfire"
+
     output_path = MemeGenerator.generate(path, top, bottom)
 
     if campfire

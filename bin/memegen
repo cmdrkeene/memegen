@@ -13,7 +13,6 @@ campfire = ARGV.include?("--campfire") || ARGV.include?("-c")
 
 usage if help || ARGV.empty?
 list_generators if list
-setup_campfire if campfire
 
 path = parse_path(image)
 generate(path, top, bottom, campfire)

@@ -1,6 +1,7 @@
 class MemeGenerator
   class Campfire
-    CONFIG_PATH = File.join(File.expand_path("~/.memegen"), ".campfire")
+    MEMEGEN_PATH = File.expand_path("~/.memegen")
+    CONFIG_PATH = File.join(MEMEGEN_PATH, ".campfire")
 
     class << self
       def config
@@ -9,13 +10,12 @@ class MemeGenerator
       end
 
       def prompt_config
-        puts "Set your Campfire credentials..."
-        print "Subdomain : "
-        subdomain = gets.strip
-        print "Token     : "
-        token = gets.strip
-        print "Room      : "
-        room = gets.strip
+        require "readline"
+        puts "Set your Campfire credentials..." unless config
+
+        subdomain = Readline.readline("Subdomain : ").strip
+        token     = Readline.readline("Token     : ").strip
+        room      = Readline.readline("Room      : ").strip
 
         write_config([subdomain, token, room])
 
@@ -23,15 +23,24 @@ class MemeGenerator
       end
 
       def upload(path)
-        require 'tinder'
-        require 'open-uri'
+        prompt_config unless config
+
+        require "tinder"
+        require "open-uri"
 
         puts "Uploading... "
         silence_stream(STDERR) do
-          campfire = Tinder::Campfire.new config[:subdomain], :token => config[:token]
-          room = campfire.rooms.detect { |room| room.name == config[:room] }
-          room.upload(path)
+          begin
+            campfire = Tinder::Campfire.new config[:subdomain], :token => config[:token]
+            room = campfire.rooms.detect { |room| room.name == config[:room] }
+            room.upload(path)
+          rescue Tinder::AuthenticationFailed
+            puts "Your campfire credentials are incorrect. Please enter them again."
+            prompt_config
+            upload(path)
+          end
         end
+        puts "Done!"
       end
 
       private
@@ -57,6 +66,8 @@ class MemeGenerator
       end
 
       def write_config(config)
+        require "fileutils"
+        FileUtils.mkdir_p(MEMEGEN_PATH)
         File.open(CONFIG_PATH, "w") do |file|
           file.write(config.join("|"))
         end
