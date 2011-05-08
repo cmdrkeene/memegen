@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency("rmagick")
   s.add_dependency("tinder")
  
-  s.files        = Dir.glob("{bin,lib}/**/*") + %w(LICENSE README.md)
+  s.files        = Dir.glob("{bin,lib,generators}/**/*") + %w(LICENSE README.md)
   s.executables  = ['memegen']
   s.require_path = 'lib'
 end
