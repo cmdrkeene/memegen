@@ -10,6 +10,10 @@ You'll need [ImageMagick](http://www.imagemagick.org/script/index.php) installed
 The easiest way is to use [Homebrew](https://github.com/mxcl/homebrew).
 
     brew install imagemagick
+    
+Then install the gem!
+
+    gem install memegen
 
 ## Usage
 
