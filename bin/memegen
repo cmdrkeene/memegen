@@ -4,7 +4,9 @@ $LOAD_PATH.unshift File.expand_path("lib")
 $LOAD_PATH.unshift File.expand_path("../lib")
 $LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
 
-def generators
+URL_REGEX = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
+
+def images
   local_generator_dir = File.expand_path("~/.memegen")
   Dir.glob(["generators/*", "#{local_generator_dir}/*"])
 end
@@ -15,11 +17,11 @@ def usage
 end
 
 # Process command
-generator, top, bottom = ARGV[0..2]
+image, top, bottom = ARGV[0..2]
 
 # List
-if generator == "--list"
-  names = generators.map { |path|
+if image == "--list"
+  names = images.map { |path|
     File.basename(path).gsub(/\..*/, '')
   }.sort
   
@@ -27,15 +29,24 @@ if generator == "--list"
   exit 0
 end
 
-# Require arguments
-usage unless generator && (top || bottom)
+# URL
+if image =~ URL_REGEX
+  path = "/tmp/memegen-download-#{Time.now.to_i}"
+  `curl "#{image}" -o #{path} --silent`
+elsif path = images.find { |p| p =~ /#{image}\./ }
+  # Success!
+else
+  puts "Error: Image not found. Use --list to view installed images."
+  exit 1
+end
 
-# Generate
-if path = generators.find { |p| p =~ /#{generator}\./ }
+# Require at least one text argument
+if top || bottom
   require "meme_generator"
   MemeGenerator.generate(path, top, bottom)
   exit 0
 else
-  puts "Meme not found"
-  exit 1
+  puts "Error: You must provide at least one piece of text"
+  usage
 end
+
