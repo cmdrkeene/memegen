@@ -2,7 +2,7 @@ require "rubygems"
 require "bundler/setup"
 
 class MemeGenerator
-  VERSION = "0.0.10"
+  VERSION = "1.0.0"
 
   class << self
     def generate(path, top, bottom)
