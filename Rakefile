@@ -7,4 +7,5 @@ end
  
 task :release => :build do
   system "gem push memegen-#{MemeGenerator::VERSION}.gem"
+  system "rm memegen-#{MemeGenerator::VERSION}.gem"
 end
