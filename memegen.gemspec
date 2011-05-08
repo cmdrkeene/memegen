@@ -15,6 +15,8 @@ Gem::Specification.new do |s|
   s.description = "Locally generate two-caption 'Advice Dog'-style meme images"
  
   s.required_rubygems_version = ">= 1.3.6"
+  
+  s.add_dependency("rmagick")
  
   s.files        = Dir.glob("{bin,lib}/**/*") + %w(LICENSE README.md)
   s.executables  = ['memegen']
