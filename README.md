@@ -61,6 +61,10 @@ It will prompt you for your subdomain, token, and room name the first time.
 
 Source or copy `script/autocomplete.sh` inside `~/.bashrc` to get image name autocompletion.
 
+See also:
+
+    memegen --install-autocomplete
+
 ## Contribute
 
 Pull requests welcome!

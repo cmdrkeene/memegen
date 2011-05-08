@@ -12,6 +12,7 @@ list = ARGV.include?("--list") || ARGV.include?("-l")
 campfire = ARGV.include?("--campfire") || ARGV.include?("-c")
 
 usage if help || ARGV.empty?
+install_autocomplete if ARGV.include?("--install-autocomplete")
 list_generators if list
 
 path = parse_path(image)

@@ -5,7 +5,7 @@ def images
 end
 
 def usage
-  puts 'usage: memegen <image> <top> <bottom> [--list|-l] [--campfire|-c] [--help|-h]'
+  puts 'usage: memegen <image> <top> <bottom> [--list|-l] [--campfire|-c] [--help|-h] [--install-autocomplete]'
   exit 1
 end
 
@@ -47,4 +47,23 @@ def generate(path, top, bottom, campfire)
     puts "Error: You must provide at least one piece of text"
     usage
   end
+end
+
+def install_autocomplete
+  path = File.join(File.dirname(__FILE__), "..", "..", "script", "autocomplete.sh")
+  puts <<-END
+Source autocomplete.sh in your ~/.bashrc:
+
+    $ echo "source #{path}" >> ~/.bashrc
+
+Then source the profile:
+
+    $ source ~/.bashrc
+
+You can copy the path to autocomplete.sh somewhere in your home directory if
+you upgrade gem versions, but it should always work.
+
+(Sorry, this sucks but I don't know a foolproof way to do this)
+END
+  exit 0
 end
