@@ -7,9 +7,9 @@ $LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
 require "meme_generator/cli"
 
 image, top, bottom = ARGV[0..2]
-help = ARGV.delete("--help") || ARGV.delete("-h")
-list = ARGV.delete("--list") || ARGV.delete("-l")
-campfire = ARGV.delete("--campfire") || ARGV.delete("-c")
+help = ARGV.include?("--help") || ARGV.include?("-h")
+list = ARGV.include?("--list") || ARGV.include?("-l")
+campfire = ARGV.include?("--campfire") || ARGV.include?("-c")
 
 usage if help || ARGV.empty?
 list_generators if list
