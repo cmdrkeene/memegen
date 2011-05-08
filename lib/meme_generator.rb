@@ -3,8 +3,7 @@ require "bundler/setup"
 require "RMagick"
 
 class MemeGenerator
-  VERSION = "0.0.7"
-  IMPACT_PATH = "fonts/Impact.ttf" # If you don't have OS X, fork me :)
+  VERSION = "0.0.8"
 
   class << self
     def generate(path, top, bottom)
@@ -15,7 +14,7 @@ class MemeGenerator
       image = canvas.first
 
       draw = Magick::Draw.new
-      draw.font = IMPACT_PATH if File.exists?(IMPACT_PATH)
+      draw.font = "fonts/Impact.ttf"
       draw.font_weight = Magick::BoldWeight
 
       pointsize = image.columns / 5.0
