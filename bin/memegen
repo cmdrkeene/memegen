@@ -6,7 +6,7 @@ $LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
 
 def generators
   local_generator_dir = File.expand_path("~/.memegen")
-  Dir.glob(["generators/*", "#{local_generator_dir}/*"]).sort
+  Dir.glob(["generators/*", "#{local_generator_dir}/*"])
 end
 
 def usage
@@ -19,9 +19,11 @@ generator, top, bottom = ARGV[0..2]
 
 # List
 if generator == "--list"
-  generators.each do |path|
-    puts File.basename(path).gsub(/\..*/, '')
-  end
+  names = generators.map { |path|
+    File.basename(path).gsub(/\..*/, '')
+  }.sort
+  
+  names.each { |name| puts name }
   exit 0
 end
 
