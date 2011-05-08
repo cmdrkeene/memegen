@@ -11,7 +11,7 @@ help = ARGV.delete("--help") || ARGV.delete("-h")
 list = ARGV.delete("--list") || ARGV.delete("-l")
 campfire = ARGV.delete("--campfire") || ARGV.delete("-c")
 
-usage if help
+usage if help || ARGV.empty?
 list_generators if list
 setup_campfire if campfire
 
