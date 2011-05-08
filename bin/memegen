@@ -7,12 +7,12 @@ $LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
 URL_REGEX = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
 
 def images
-  local_generator_dir = File.expand_path("~/.memegen")
-  Dir.glob(["generators/*", "#{local_generator_dir}/*"])
+  local_image_path = File.expand_path("~/.memegen")
+  Dir.glob(["generators/*", "#{local_image_path}/*."])
 end
 
 def usage
-  puts 'usage: memegen <generator> <top text> <bottom text> [--list]'
+  puts 'usage: memegen <image> <top> <bottom> [--list|-l] [--campfire|-c]'
   exit 1
 end
 
@@ -20,13 +20,20 @@ end
 image, top, bottom = ARGV[0..2]
 
 # List
-if image == "--list"
+if ARGV.delete("--list")
   names = images.map { |path|
     File.basename(path).gsub(/\..*/, '')
   }.sort
   
   names.each { |name| puts name }
   exit 0
+end
+
+# Campfire setup
+require "meme_generator/campfire"
+campfire = ARGV.delete("--campfire") || ARGV.delete("-c")
+if campfire && !MemeGenerator::Campfire.config
+  MemeGenerator::Campfire.prompt_config
 end
 
 # URL
@@ -43,7 +50,13 @@ end
 # Require at least one text argument
 if top || bottom
   require "meme_generator"
-  MemeGenerator.generate(path, top, bottom)
+  output_path = MemeGenerator.generate(path, top, bottom)
+  
+  if campfire
+    MemeGenerator::Campfire.upload(output_path)
+  else
+    puts output_path
+  end
   exit 0
 else
   puts "Error: You must provide at least one piece of text"

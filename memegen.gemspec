@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = ">= 1.3.6"
   
   s.add_dependency("rmagick")
+  s.add_dependency("tinder")
  
   s.files        = Dir.glob("{bin,lib}/**/*") + %w(LICENSE README.md)
   s.executables  = ['memegen']

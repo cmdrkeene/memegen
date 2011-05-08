@@ -1,12 +1,12 @@
 require "rubygems"
 require "bundler/setup"
-require "RMagick"
 
 class MemeGenerator
-  VERSION = "0.0.8"
+  VERSION = "0.0.9"
 
   class << self
     def generate(path, top, bottom)
+      require "RMagick"
       top = top.upcase
       bottom = bottom.upcase
 
@@ -54,8 +54,7 @@ class MemeGenerator
 
       output_path = "/tmp/meme-#{Time.now.to_i}.jpeg"
       canvas.write(output_path)
-      puts output_path
-      exit 0
+      output_path
     end
 
     private
