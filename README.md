@@ -23,13 +23,19 @@ To see a list of available generators:
 To generate an image:
 
     $ memegen a_dog "Eat Crayons" "Poop Rainbows"
-    /tmp/meme-1304797373.jpg
+    /tmp/meme-1234567890.jpg
     $ 
     
 You only have to supply one piece of text:
 
     $ memegen a_dog "" "AWESOME"
-    /tmp/meme-1304797375.jpg
+    /tmp/meme-1234567890.jpg
+    $
+
+You can also use URLs for one time use memes:
+
+    $ memegen http://example.com/stupid.jpg "Generated" "From a URL"
+    /tmp/meme-1234567890.jpg
     $
     
 ## Adding your own generators
