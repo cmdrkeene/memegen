@@ -17,7 +17,7 @@ Then install the gem!
 
 ## Usage
 
-To see a list of available generators:
+To see a list of available images:
 
     $ memegen --list
     a_dog
@@ -42,19 +42,17 @@ You can also use URLs for one time use memes:
     /tmp/meme-1234567890.jpg
     $
     
-## Adding your own generators
+## Adding your own images
 
-You can add generators to your local `~/.memegen` folder:
+You can add images to your local `~/.memegen` folder:
 
     $ ls ~/.memegen
-    my_custom_generator.png
+    my_custom_image.png
     
 ## Bash completion
 
-Source or copy `script/autocomplete.sh` inside `~/.bashrc` to get generator 
-name autocompletion.
+Source or copy `script/autocomplete.sh` inside `~/.bashrc` to get image name autocompletion.
 
 ## Contribute
 
 Pull requests welcome!
-    
