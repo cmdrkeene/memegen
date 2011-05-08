@@ -22,7 +22,7 @@ def parse_path(string)
   if string =~ /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
     path = "/tmp/memegen-download-#{Time.now.to_i}"
     `curl "#{image}" -o #{path} --silent`
-  elsif path = images.find { |p| p =~ /\/#{string}\.*$/ }
+  elsif path = images.find { |p| p =~ /\/#{string}\..*$/ }
   else
     puts "Error: Image not found. Use --list to view installed images."
     exit 1
