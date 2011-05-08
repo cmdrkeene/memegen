@@ -4,62 +4,16 @@ $LOAD_PATH.unshift File.expand_path("lib")
 $LOAD_PATH.unshift File.expand_path("../lib")
 $LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
 
-URL_REGEX = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
+require "meme_generator/cli"
 
-def images
-  local_image_path = File.expand_path("~/.memegen")
-  Dir.glob(["generators/*", "#{local_image_path}/*."])
-end
-
-def usage
-  puts 'usage: memegen <image> <top> <bottom> [--list|-l] [--campfire|-c]'
-  exit 1
-end
-
-# Process command
 image, top, bottom = ARGV[0..2]
-
-# List
-if ARGV.delete("--list")
-  names = images.map { |path|
-    File.basename(path).gsub(/\..*/, '')
-  }.sort
-  
-  names.each { |name| puts name }
-  exit 0
-end
-
-# Campfire setup
-require "meme_generator/campfire"
+help = ARGV.delete("--help") || ARGV.delete("-h")
+list = ARGV.delete("--list") || ARGV.delete("-l")
 campfire = ARGV.delete("--campfire") || ARGV.delete("-c")
-if campfire && !MemeGenerator::Campfire.config
-  MemeGenerator::Campfire.prompt_config
-end
 
-# URL
-if image =~ URL_REGEX
-  path = "/tmp/memegen-download-#{Time.now.to_i}"
-  `curl "#{image}" -o #{path} --silent`
-elsif path = images.find { |p| p =~ /#{image}\./ }
-  # Success!
-else
-  puts "Error: Image not found. Use --list to view installed images."
-  exit 1
-end
+usage if help
+list_generators if list
+setup_campfire if campfire
 
-# Require at least one text argument
-if top || bottom
-  require "meme_generator"
-  output_path = MemeGenerator.generate(path, top, bottom)
-  
-  if campfire
-    MemeGenerator::Campfire.upload(output_path)
-  else
-    puts output_path
-  end
-  exit 0
-else
-  puts "Error: You must provide at least one piece of text"
-  usage
-end
-
+path = parse_path(image)
+generate(path, top, bottom, campfire)
