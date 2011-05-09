@@ -32,9 +32,6 @@ end
 
 def generate(path, top, bottom, campfire)
   if top || bottom
-    require "meme_generator"
-    require "meme_generator/campfire"
-
     output_path = MemeGenerator.generate(path, top, bottom)
 
     if campfire

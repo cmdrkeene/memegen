@@ -15,5 +15,9 @@ usage if help || ARGV.empty?
 install_autocomplete if ARGV.include?("--install-autocomplete")
 list_generators if list
 
+require "rubygems"
+require "meme_generator"
+require "meme_generator/campfire" if campfire
+
 path = parse_path(image)
 generate(path, top, bottom, campfire)

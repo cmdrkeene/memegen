@@ -1,12 +1,11 @@
-require "rubygems"
-require "bundler/setup"
+require "RMagick"
+require "fileutils"
 
 class MemeGenerator
-  VERSION = "1.0.3"
+  VERSION = "1.0.4"
 
   class << self
     def generate(path, top, bottom)
-      require "RMagick"
       top = top.upcase
       bottom = bottom.upcase
 

@@ -1,3 +1,5 @@
+require "tinder"
+
 class MemeGenerator
   class Campfire
     MEMEGEN_PATH = File.expand_path("~/.memegen")
@@ -24,9 +26,6 @@ class MemeGenerator
 
       def upload(path)
         prompt_config unless config
-
-        require "tinder"
-        require "open-uri"
 
         puts "Uploading... "
         silence_stream(STDERR) do
@@ -66,7 +65,6 @@ class MemeGenerator
       end
 
       def write_config(config)
-        require "fileutils"
         FileUtils.mkdir_p(MEMEGEN_PATH)
         File.open(CONFIG_PATH, "w") do |file|
           file.write(config.join("|"))
