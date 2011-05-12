@@ -2,7 +2,7 @@ require "RMagick"
 require "fileutils"
 
 class MemeGenerator
-  VERSION = "1.0.5"
+  VERSION = "1.0.6"
 
   class << self
     def generate(path, top, bottom)
