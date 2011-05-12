@@ -18,8 +18,9 @@ class MemeGenerator
         subdomain = Readline.readline("Subdomain : ").strip
         token     = Readline.readline("Token     : ").strip
         room      = Readline.readline("Room      : ").strip
+        message   = Readline.readline("Message (optional) : ").strip
 
-        write_config([subdomain, token, room])
+        write_config([subdomain, token, room, message])
 
         puts "Config saved successfully!"
       end
@@ -32,6 +33,7 @@ class MemeGenerator
           begin
             campfire = Tinder::Campfire.new config[:subdomain], :token => config[:token]
             room = campfire.rooms.detect { |room| room.name == config[:room] }
+            room.speak(config[:message]) unless config[:message].nil? || config.empty?
             room.upload(path)
           rescue Tinder::AuthenticationFailed
             puts "Your campfire credentials are incorrect. Please enter them again."
@@ -60,7 +62,8 @@ class MemeGenerator
         {
           :subdomain  => values[0],
           :token      => values[1],
-          :room       => values[2]
+          :room       => values[2],
+          :message    => values[3]
         }
       end
 
