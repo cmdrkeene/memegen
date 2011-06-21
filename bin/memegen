@@ -6,6 +6,7 @@ $LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
 
 require "meme_generator/cli"
 
+show_preview = ARGV.delete("show")
 image, top, bottom = ARGV[0..2]
 help = ARGV.include?("--help") || ARGV.include?("-h")
 list = ARGV.include?("--list") || ARGV.include?("-l")
@@ -20,4 +21,9 @@ require "meme_generator"
 require "meme_generator/campfire" if campfire
 
 path = parse_path(image)
-generate(path, top, bottom, campfire)
+
+if show_preview
+  system "open #{path} -a Safari"
+else
+  generate(path, top, bottom, campfire)
+end
