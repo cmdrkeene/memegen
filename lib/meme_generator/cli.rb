@@ -30,12 +30,14 @@ def parse_path(string)
   path
 end
 
-def generate(path, top, bottom, campfire)
+def generate(path, top, bottom, campfire, cloudapp)
   if top || bottom
     output_path = MemeGenerator.generate(path, top, bottom)
 
     if campfire
       MemeGenerator::Campfire.upload(output_path)
+    elsif cloudapp
+      system("cloudapp", output_path)
     else
       puts output_path
     end

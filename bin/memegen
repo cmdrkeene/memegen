@@ -8,6 +8,7 @@ require "meme_generator/cli"
 
 show_preview = ARGV.delete("show")
 campfire = ARGV.delete("--campfire") || ARGV.delete("-c")
+cloudapp = ARGV.delete("--cloudapp") || ARGV.delete("-u")
 help = ARGV.delete("--help") || ARGV.delete("-h")
 list = ARGV.delete("--list") || ARGV.delete("-l")
 
@@ -27,5 +28,5 @@ path = parse_path(image)
 if show_preview
   system "open #{path} -a Safari"
 else
-  generate(path, top.to_s, bottom.to_s, campfire)
+  generate(path, top.to_s, bottom.to_s, campfire, cloudapp)
 end
