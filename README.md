@@ -56,7 +56,18 @@ If you have a [Campfire](http://campfirenow.com/) account and token, you can aut
     $ memegen a_dog "Hello" "Campfire world" --campfire
     
 It will prompt you for your subdomain, token, and room name the first time.
-    
+
+## Upload to Cloudapp
+
+If you have [Zach Holman](https://github.com/holman/)'s [Cloudapp
+script](https://github.com/holman/dotfiles/blob/master/bin/cloudapp), you can
+automatically upload your image to your Cloudapp account:
+
+   $ memegen y_u_no "WHY U NO" "USE CLOUDAPP" --cloudapp
+   Uploaded to http://cl.ly/3U2I3R2Z1X1I0q303N0I. 
+
+You'll have to configure `~/.cloudapp` first.
+
 ## Bash completion
 
 Source or copy `script/autocomplete.sh` inside `~/.bashrc` to get image name autocompletion.
