@@ -5,7 +5,7 @@ def images
 end
 
 def usage
-  puts 'usage: memegen <image> <top> <bottom> [--list|-l] [--campfire|-c] [--help|-h] [--install-autocomplete]'
+  puts 'usage: memegen <image> <top> <bottom> [--list|-l] [--campfire|-c] [--groupme|-g] [--help|-h] [--install-autocomplete]'
   exit 1
 end
 
@@ -30,13 +30,17 @@ def parse_path(string)
   path
 end
 
-def generate(path, top, bottom, campfire)
+def generate(path, top, bottom, campfire, groupme)
   if top || bottom
     output_path = MemeGenerator.generate(path, top, bottom)
 
     if campfire
       MemeGenerator::Campfire.upload(output_path)
-    else
+    end
+    if groupme
+      MemeGenerator::GroupMe.upload(output_path)
+    end
+    if (! (campfire || groupme) )
       puts output_path
     end
     exit 0
