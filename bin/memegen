@@ -27,7 +27,7 @@ require "meme_generator/groupme" if groupme
 path = parse_path(image)
 
 if show_preview
-  system "open #{path} -a Safari"
+  system "open #{path} -a Preview"
 else
   generate(path, top.to_s, bottom.to_s, campfire, groupme)
 end
