@@ -56,6 +56,13 @@ Source autocomplete.sh in your ~/.bashrc:
 Then source the profile:
 
     $ source ~/.bashrc
+    
+Or if you're using a mac
+
+    $ echo "source #{path}" >> ~/.bash_profile
+    
+and
+    $ source ~/.bash_profile
 
 You can copy the path to autocomplete.sh somewhere in your home directory if
 you upgrade gem versions, but it should always work.
