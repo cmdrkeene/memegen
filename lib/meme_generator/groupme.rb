@@ -18,13 +18,32 @@ class MemeGenerator
         require "readline"
         puts "Set your GroupMe credentials..." unless config
 
-        token     = Readline.readline("Token     : ").strip
-        room      = Readline.readline("Group Id      : ").strip
-        message   = Readline.readline("Message (optional) : ").strip
-
-        write_config([token, room, message])
-
-        puts "Config saved successfully!"
+        phonenumber     = Readline.readline("Phone #: ").strip
+        password     = Readline.readline("Password: ").strip
+        room      = Readline.readline("Group Id: ").strip
+        message   = Readline.readline("Message (optional): ").strip
+        
+        token = auth_user(phonenumber, password)
+        
+        if (token == nil)
+          puts "Error authorizing user"
+        else
+          write_config([token, room, message])
+          puts "Config saved successfully!"
+        end
+      end
+      
+      def auth_user(phonenumber, password)
+        groupme_url = "https://v2.groupme.com/access_tokens"
+        uri = URI.parse(groupme_url)
+        request = Net::HTTP::Post.new(uri.request_uri)
+        request.set_form_data({"grant_type" => "password", "phone_number" => phonenumber, "password" => password, "app_id" => "memegen"});
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        response = http.request(request)
+        json_res = JSON.parse(response.body)
+        token = json_res["response"]["access_token"]
+        return token
       end
 
       def upload(path)
