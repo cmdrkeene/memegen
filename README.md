@@ -56,6 +56,14 @@ If you have a [Campfire](http://campfirenow.com/) account and token, you can aut
     $ memegen a_dog "Hello" "Campfire world" --campfire
     
 It will prompt you for your subdomain, token, and room name the first time.
+
+## Upload to GroupMe
+
+If you have a [GroupMe](http://groupme.com/) account and token, you can automatically upload your image:
+
+    $ memegen a_dog "Hello" "GroupMe world" --groupme
+    
+It will prompt you for your phone number, password, and group id the first time. (your password will NOT be stored in plain text).
     
 ## Bash completion
 

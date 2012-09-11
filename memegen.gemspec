@@ -18,6 +18,8 @@ Gem::Specification.new do |s|
   
   s.add_dependency("rmagick")
   s.add_dependency("tinder", "1.4.4")
+  s.add_dependency("multipart-post")
+  s.add_dependency("highlight")
  
   s.files        = Dir.glob("{bin,lib,generators,fonts,script}/**/*") + %w(LICENSE README.md)
   s.executables  = ['memegen']
