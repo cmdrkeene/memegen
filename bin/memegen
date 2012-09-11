@@ -8,6 +8,7 @@ require "meme_generator/cli"
 
 show_preview = ARGV.delete("show")
 campfire = ARGV.delete("--campfire") || ARGV.delete("-c")
+groupme = ARGV.delete("--groupme") || ARGV.delete("-g")
 help = ARGV.delete("--help") || ARGV.delete("-h")
 list = ARGV.delete("--list") || ARGV.delete("-l")
 
@@ -21,11 +22,12 @@ usage if help || ARGV.empty?
 require "rubygems"
 require "meme_generator"
 require "meme_generator/campfire" if campfire
+require "meme_generator/groupme" if groupme
 
 path = parse_path(image)
 
 if show_preview
-  system "open #{path} -a Safari"
+  system "open #{path} -a Preview"
 else
-  generate(path, top.to_s, bottom.to_s, campfire)
+  generate(path, top.to_s, bottom.to_s, campfire, groupme)
 end
