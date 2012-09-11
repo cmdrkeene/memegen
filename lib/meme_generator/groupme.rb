@@ -16,10 +16,11 @@ class MemeGenerator
 
       def prompt_config
         require "readline"
+        require "highline/import"
         puts "Set your GroupMe credentials..." unless config
 
         phonenumber     = Readline.readline("Phone #: ").strip
-        password     = Readline.readline("Password: ").strip
+        password = ask("Password: ")  { |input| input.echo = false }
         room      = Readline.readline("Group Id: ").strip
         message   = Readline.readline("Message (optional): ").strip
         
