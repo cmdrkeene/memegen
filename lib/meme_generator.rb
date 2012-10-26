@@ -5,9 +5,29 @@ class MemeGenerator
   VERSION = "1.0.8"
 
   class << self
+
+    # @return [Array<String>] Returns a list of short names for memes
+    #   available locally on disk.
+    def memes
+      meme_paths.keys
+    end
+
+    # @return [Hash] Returns a hash of of available memes.  Hash keys are
+    #   the short names for the memes and the values are paths to the meme
+    #   image on disk.
+    def meme_paths
+      local_image_path = File.expand_path("~/.memegen")
+      base = File.join(File.dirname(__FILE__), "..", "generators")
+      files = Dir.glob(["#{base}/*", "#{local_image_path}/*.*"])
+      files.inject({}) do |images,path|
+        name = path.split('/').last.sub(/\.jpg$/, '')
+        images.merge(name => path)
+      end
+    end
+
     def generate(path, top, bottom)
-      top = top.upcase
-      bottom = bottom.upcase
+      top = (top || '').upcase
+      bottom = (bottom || '').upcase
 
       canvas = Magick::ImageList.new(path)
       image = canvas.first
