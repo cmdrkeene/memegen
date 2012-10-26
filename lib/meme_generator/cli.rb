@@ -1,7 +1,5 @@
 def images
-  local_image_path = File.expand_path("~/.memegen")
-  base = File.join(File.dirname(__FILE__), "..", "..", "generators")
-  Dir.glob(["#{base}/*", "#{local_image_path}/*.*"])
+  MemeGenerator.meme_paths.values
 end
 
 def usage
