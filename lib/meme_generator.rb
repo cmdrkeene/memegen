@@ -2,7 +2,7 @@ require "RMagick"
 require "fileutils"
 
 class MemeGenerator
-  VERSION = "1.0.8"
+  VERSION = "1.0.9"
 
   class << self
 
