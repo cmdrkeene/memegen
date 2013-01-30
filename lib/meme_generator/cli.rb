@@ -1,3 +1,5 @@
+require 'meme_generator'
+
 def images
   MemeGenerator.meme_paths.values
 end
