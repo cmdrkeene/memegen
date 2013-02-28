@@ -43,6 +43,12 @@ You can also use URLs for one time use memes:
     /tmp/meme-1234567890.jpg
     $
 
+Or use an image in your computer:
+
+    $ memegen stupid.jpg "Legen..." "...dary!"
+    /tmp/meme-1234567890.jpg
+    $
+
 ## Adding your own images
 
 You can add images to your local `~/.memegen` folder:
