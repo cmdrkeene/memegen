@@ -9,13 +9,16 @@ An RMagick-based two-caption meme generator.
 You'll need [ImageMagick](http://www.imagemagick.org/script/index.php) and [ghostscript](http://www.ghostscript.com/) installed.
 
 The easiest way on OSX is to use [Homebrew](https://github.com/mxcl/homebrew).
+
     brew install ghostscript
     brew install --build-from-source imagemagick
 
 For Ubuntu:
+
     sudo apt-get install rubygems ghostscript graphicsmagick-libmagick-dev-compat libmagickwand-dev 
 
 Then install the gem for OSX!
+
     gem install memegen
 
 Or for Ubuntu:
