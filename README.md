@@ -22,8 +22,10 @@ Then install the gem for OSX!
     gem install memegen
 
 Or for Ubuntu:
+
     sudo gem install rails (if you haven't alread)
     sudo gem install memegen    
+
 
 ## Usage
 
