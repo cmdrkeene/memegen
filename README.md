@@ -6,7 +6,7 @@ An RMagick-based two-caption meme generator.
 
 ## Install
 
-You'll need [ImageMagick](http://www.imagemagick.org/script/index.php) and [ghostscript](http://www.ghostscript.com/) installed.
+You'll need ruby, rubygems, [ImageMagick](http://www.imagemagick.org/script/index.php) and [ghostscript](http://www.ghostscript.com/) installed.
 
 The easiest way on OSX is to use [Homebrew](https://github.com/mxcl/homebrew).
 
