@@ -1,3 +1,5 @@
+require_relative '../meme_generator.rb'
+
 def images
   MemeGenerator.meme_paths.values
 end
@@ -58,11 +60,11 @@ Source autocomplete.sh in your ~/.bashrc:
 Then source the profile:
 
     $ source ~/.bashrc
-    
+
 Or if you're using a mac
 
     $ echo "source #{path}" >> ~/.bash_profile
-    
+
 and
     $ source ~/.bash_profile
 
