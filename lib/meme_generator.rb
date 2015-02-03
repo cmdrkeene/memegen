@@ -4,6 +4,8 @@ require "fileutils"
 class MemeGenerator
   VERSION = "1.0.9"
 
+  INTERLINE_SPACING_RATIO = 3
+
   class << self
 
     # @return [Array<String>] Returns a list of short names for memes
@@ -46,7 +48,7 @@ class MemeGenerator
         scale, text = scale_text(top)
         bottom_draw = draw.dup
         bottom_draw.annotate(canvas, 0, 0, 0, 0, text) do
-          self.interline_spacing = -(pointsize / 5)
+          self.interline_spacing = -(pointsize / INTERLINE_SPACING_RATIO) * scale
           self.stroke_antialias(true)
           self.stroke = "black"
           self.fill = "white"
@@ -61,7 +63,7 @@ class MemeGenerator
         scale, text = scale_text(bottom)
         bottom_draw = draw.dup
         bottom_draw.annotate(canvas, 0, 0, 0, 0, text) do
-          self.interline_spacing = -(pointsize / 5)
+          self.interline_spacing = -(pointsize / INTERLINE_SPACING_RATIO) * scale
           self.stroke_antialias(true)
           self.stroke = "black"
           self.fill = "white"
@@ -89,9 +91,12 @@ class MemeGenerator
       elsif text.length < 24
         text = word_wrap(text, 10)
         scale = 0.70
-      else
-        text = word_wrap(text, 18)
+      elsif text.length < 48
+        text = word_wrap(text, 15)
         scale = 0.5
+      else
+        text = word_wrap(text, 20)
+        scale = 0.4
       end
       [scale, text.strip]
     end
