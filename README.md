@@ -6,15 +6,26 @@ An RMagick-based two-caption meme generator.
 
 ## Install
 
-You'll need [ImageMagick](http://www.imagemagick.org/script/index.php) and [ghostscript](http://www.ghostscript.com/) installed.
-The easiest way is to use [Homebrew](https://github.com/mxcl/homebrew).
+You'll need ruby, rubygems, [ImageMagick](http://www.imagemagick.org/script/index.php) and [ghostscript](http://www.ghostscript.com/) installed.
+
+The easiest way on OSX is to use [Homebrew](https://github.com/mxcl/homebrew).
 
     brew install ghostscript
     brew install --build-from-source imagemagick
 
-Then install the gem!
+For Ubuntu:
+
+    sudo apt-get install rubygems ghostscript graphicsmagick-libmagick-dev-compat libmagickwand-dev 
+
+Then install the gem for OSX!
 
     gem install memegen
+
+Or for Ubuntu, install the rails gem if you haven't already, and the memegen gem:
+
+    sudo gem install rails
+    sudo gem install memegen    
+
 
 ## Usage
 
