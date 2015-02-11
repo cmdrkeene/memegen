@@ -23,6 +23,8 @@ def parse_path(string)
     path = "/tmp/memegen-download-#{Time.now.to_i}"
     `curl "#{string}" -o #{path} --silent`
   elsif path = images.find { |p| p =~ /\/#{string}\..*$/ }
+  elsif File.exists? string
+    path = string
   else
     puts "Error: Image not found. Use --list to view installed images."
     exit 1
